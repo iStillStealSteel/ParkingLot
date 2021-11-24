@@ -20,7 +20,7 @@
         <div class="form-group">
             <label >Owner</label>
             <select name="owner_id" class="form-control">
-                <option>Owner</option>
+                <option>1</option>
             </select>
         </div>
 

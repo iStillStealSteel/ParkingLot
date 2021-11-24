@@ -38,6 +38,10 @@ public class Car implements Serializable {
     
     private User user;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public String getLicensePlate() {
         return licensePlate;
     }

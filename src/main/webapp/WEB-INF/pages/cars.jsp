@@ -24,4 +24,5 @@
         </div>
     </c:forEach>
     <h5>Free parking spots: ${numberOfFreeParkingSpots}</h5>
+    <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/AddCar" role="button">Add Cars</a>
 </t:pageTemplate>
