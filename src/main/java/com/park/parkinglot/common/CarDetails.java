@@ -9,12 +9,12 @@ package com.park.parkinglot.common;
  * @author boo_b
  */
 public class CarDetails implements java.io.Serializable{
-private Long id;
+private Integer id;
 private String licensePlate;
 private String parkingSpot;
 private String username;
 
-    public CarDetails(Long id, String licensePlate, String parkingSpot, String username) {
+    public CarDetails(Integer id, String licensePlate, String parkingSpot, String username) {
         this.id = id;
         this.licensePlate = licensePlate;
         this.parkingSpot = parkingSpot;
@@ -23,7 +23,7 @@ private String username;
 
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 

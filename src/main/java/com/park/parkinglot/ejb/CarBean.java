@@ -43,7 +43,7 @@ public class CarBean {
 
         List<CarDetails> detailsList = new ArrayList<>();
         for (Car car : cars) {
-            CarDetails carDetails = new CarDetails(car.getId().longValue(),
+            CarDetails carDetails = new CarDetails(car.getId(),
                     car.getLicensePlate(),
                     car.getParkingSpot(),
                     car.getUser().getUsername());
@@ -66,4 +66,9 @@ public class CarBean {
         
         em.persist(car);
     }
+    public CarDetails findById(Integer carId) {
+        Car car = em.find(Car.class, carId);
+        return new CarDetails(car.getId(), car.getLicensePlate(), car.getParkingSpot(), car.getUser().getUsername());
+    }
+
 }

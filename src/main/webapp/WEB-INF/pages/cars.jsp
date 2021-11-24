@@ -21,6 +21,9 @@
             <div class="col-md-4">
                 {$car.username}
             </div>
+            <div class="col-md-2">
+                <a class="btn btn-secondary mb-1" href="${pageContext.request.contextPath}/EditCar?id=${car.id}" role="button">Edit Car</a>
+            </div>
         </div>
     </c:forEach>
     <h5>Free parking spots: ${numberOfFreeParkingSpots}</h5>
