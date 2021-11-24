@@ -21,7 +21,8 @@
             <label >Owner</label>
             <select name="owner_id" class="form-control">
                 <option value="">Choose...</option>
-                <c:forEach var="user" items="${car.username eq user.username ? 'selected':''}+${user.username}"
+                <c:forEach var="user" items="${car.username eq user.username ? 'selected':''}>${user.username}</option>
+            </c:forEach>
             </select>
         </div>
 
