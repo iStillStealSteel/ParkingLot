@@ -19,14 +19,12 @@
         </div>
         <div class="form-group">
             <label >Owner</label>
-            <select name="owner_id" class="form-control">
-                <option>1</option>
+            <select name="owner_id" id="owner_id" class="form-control" required>
+                <option value="">Choose</option>
+                <c:forEach var="user" items="${users}" varStatus="status">
+                    <option value="${user.id}">${user.username}</option>
+                </c:forEach>
             </select>
-        </div>
-
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

@@ -29,6 +29,7 @@ public class EditCar extends HttpServlet {
     
     @Inject
     CarBean carBean;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -84,7 +85,14 @@ public class EditCar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String licensePlate=request.getParameter("license_plate");
+        String parkingSpot=request.getParameter("parking_spot");
+        int ownerId=Integer.parseInt(request.getParameter("owner_id"));
+        int carId=Integer.parseInt(request.getParameter("car_id"));
+        
+        carBean.updateCar(carId,licensePlate,parkingSpot,ownerId);
+        
+        response.sendRedirect(request.getContextPath()+"/Cars");
     }
 
     /**

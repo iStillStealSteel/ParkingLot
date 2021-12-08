@@ -35,7 +35,6 @@ public class Car implements Serializable {
     
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="USER_KEY")
-    
     private User user;
 
     public static long getSerialVersionUID() {

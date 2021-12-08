@@ -80,6 +80,10 @@ public class User implements Serializable {
     public void setCars(Collection<Car> cars) {
         this.cars = cars;
     }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
     
     
 
