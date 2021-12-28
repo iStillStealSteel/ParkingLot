@@ -9,6 +9,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <t:pageTemplate pageTitle="Users">
     <h1>Users</h1>
+    <c:if test="${pageContext.request.isUserInRole('AdminRole')}">
+        <a class="ntm btn-primary btn-lg" href="${pageContext.request.contextPath}/AddUser" role="button">Add User</a>
+    </c:if>
     <c:forEach var="user" items="${users}" varStatus="status">
 
         <div class="row">
