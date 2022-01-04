@@ -21,7 +21,7 @@
         </div>
         <div class="row">
             <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="j_password" class="form_control" placeholder="Password" required><!-- comment -->
+            <input type="password" id="password" name="password" class="form_control" placeholder="Password" required><!-- comment -->
         </div>
         <div class="row">
             <label for="position" class="sr-only">Position</label>
@@ -32,6 +32,6 @@
             </select>
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Add New User</button>
     </form>
 </t:pageTemplate>

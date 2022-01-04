@@ -4,6 +4,7 @@
  */
 package com.park.parkinglot.servlet;
 
+import com.park.parkinglot.common.CarDetails;
 import com.park.parkinglot.common.UserDetails;
 import com.park.parkinglot.ejb.CarBean;
 import com.park.parkinglot.ejb.UserBean;
@@ -12,6 +13,8 @@ import java.io.PrintWriter;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.HttpConstraint;
+import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author boo_b
  */
+@ServletSecurity(value=@HttpConstraint(rolesAllowed={"AdminRole"}))
 @WebServlet(name = "EditCar", urlPatterns = {"/EditCar"})
 public class EditCar extends HttpServlet {
 
@@ -70,6 +74,9 @@ public class EditCar extends HttpServlet {
             throws ServletException, IOException {
         List<UserDetails>users=userBean.getAllUsers();
         request.setAttribute("users",users);
+        int carId=Integer.parseInt(request.getParameter("id"));
+        CarDetails car=carBean.findById(carId);
+        request.setAttribute("car",car);
         request.getRequestDispatcher("/WEB-INF/pages/editCar.jsp").forward(request, response);
         
     }

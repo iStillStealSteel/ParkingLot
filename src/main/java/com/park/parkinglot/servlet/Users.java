@@ -5,12 +5,18 @@
 package com.park.parkinglot.servlet;
 
 import com.park.parkinglot.common.UserDetails;
+import com.park.parkinglot.ejb.InvoiceBean;
 import com.park.parkinglot.ejb.UserBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.HttpConstraint;
+import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +26,15 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author boo_b
  */
+@ServletSecurity(value = @HttpConstraint(rolesAllowed = {"AdminRole", "ClientRole"}))
 @WebServlet(name = "Users", urlPatterns = {"/Users"})
 public class Users extends HttpServlet {
+
     @Inject
-    private UserBean userBean;
+    UserBean userBean;
+    @Inject
+    InvoiceBean invoiceBean;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,12 +47,12 @@ public class Users extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Users</title>");            
+            out.println("<title>Servlet Users</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Users at " + request.getContextPath() + "</h1>");
@@ -61,13 +72,17 @@ public class Users extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-             throws ServletException, IOException {
+            throws ServletException, IOException {
         request.setAttribute("activePage", "Users");
-                
-        List<UserDetails>users=userBean.getAllUsers();
-        request.setAttribute("cars",users);
+
+        List<UserDetails> users = userBean.getAllUsers();
+        request.setAttribute("users", users);
         
-        request.getRequestDispatcher("/WEB-INF/pages/users.jsp").forward(request,response);
+        if(!invoiceBean.getUserIds().isEmpty()){
+            Collection<String>usernames=userBean.findUsernames(invoiceBean.getUserIds());
+            request.setAttribute("invoices",usernames);
+        }
+        request.getRequestDispatcher("/WEB-INF/pages/users.jsp").forward(request, response);
     }
 
     /**
@@ -81,7 +96,15 @@ public class Users extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String[] userIdsAsString = request.getParameterValues("user_ids");
+        if (userIdsAsString != null) {
+            Set<Integer> userIds = new HashSet<Integer>();
+            for (String userIdAsString : userIdsAsString) {
+                userIds.add(Integer.parseInt(userIdAsString));
+            }
+            invoiceBean.getUserIds().addAll(userIds);
+        }
+        response.sendRedirect(request.getContextPath() + "/Users");
     }
 
     /**
