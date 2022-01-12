@@ -48,11 +48,13 @@ public class Cars extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("activePage", "Cars");
-        request.setAttribute("numberOfFreeParkingSpots", 10);
-
         List<CarDetails> cars = carBean.getAllCars();
         request.setAttribute("cars", cars);
+        
+        request.setAttribute("activePage", "Cars");
+        request.setAttribute("numberOfFreeParkingSpots", 10-cars.size());
+
+        
 
         request.getRequestDispatcher("/WEB-INF/pages/cars.jsp").forward(request, response);
     }
